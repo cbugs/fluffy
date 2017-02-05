@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+	<script type="text/javascript" src="js/vendor/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background-image: url('assets/background.png');
+            background-size: 100%;
+            text-align:center;
+        }
+
+        .button {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #008CBA;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 28px;
+        padding: 20px;
+        width: 200px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+        margin-top:50px;
+        }
+
+        .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+        }
+
+        .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+        }
+
+        .button:hover span {
+        padding-right: 25px;
+        }
+
+        .button:hover span:after {
+        opacity: 1;
+        right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<a href='words.html' class="button" style="vertical-align:middle"><span>Fluffy Words </span></a>
+</body>
+</html>
