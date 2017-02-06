@@ -22,7 +22,7 @@ Engine.prototype.initGame = function(){
           var posY = 1;
           this.maze[posX][posY] = 0; 
           moves.push(posY + posY * this.mazeWidth);
-          this.game.time.events.loop(0, function(){
+          this.game.time.events.loop(Phaser.Timer.SECOND/2500, function(){
                if(moves.length){       
                     var possibleDirections = "";
                     if(posX+2 > 0 && posX + 2 < this.mazeHeight - 1 && this.maze[posX + 2][posY] == 1){
@@ -38,7 +38,7 @@ Engine.prototype.initGame = function(){
                          possibleDirections += "E";
                     } 
                     if(possibleDirections){
-                         var move = Math.floor(Math.random() * (possibleDirections.length - 0) + 0);//possibleDirections.split("").getRandomElement();//this.game.rnd.between(0, possibleDirections.length - 1);
+                         var move = Math.floor(Math.random() * (possibleDirections.length - 0) + 0);
                          switch (possibleDirections[move]){
                               case "N": 
                                    this.maze[posX - 2][posY] = 0;
