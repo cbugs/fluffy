@@ -15,11 +15,17 @@ var Menu = {
         //  Scale it to fit the width of the game 
         background.scale.setTo(0.5, 0.4);
 
-        button = this.add.button(0, 0, 'button', this.startGame, this);
+        button = this.add.button((getScreenWidth()/2)-(225*0.5), 0, 'button', this.startGame, this);
         button.scale.setTo(0.5, 0.4);
-           cropRect = new Phaser.Rectangle(1000, 60, 450, 200);
+        cropRect = new Phaser.Rectangle(580, 260, 440, 200);
+        button.crop(cropRect);
 
-    button.crop(cropRect);
+        var style = { font: "60px Arial", fill: "#ffffff" }; 
+        label_score = this.game.add.text(55, 85, "Word Game", style);
+        label_score.stroke = '#cc';
+        label_score.strokeThickness = 5;
+        button.addChild(label_score);
+        button.input.useHandCursor = true;
 
         butterfly = this.add.sprite(300, 200, 'butterfly');
         butterfly.scale.setTo(0.2, 0.2);

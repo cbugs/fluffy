@@ -21,3 +21,11 @@ String.prototype.capitalizeFirstLetter = function() {
 Array.prototype.getRandomElement = function () {
     return this[Math.floor((Math.random()*this.length))];
 }
+
+var getScreenWidth = function() {
+    return window.innerWidth * window.devicePixelRatio;
+}
+
+var getScreenHeight = function() {
+    return window.innerHeight * window.devicePixelRatio;
+}
