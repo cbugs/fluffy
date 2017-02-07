@@ -1,10 +1,11 @@
 Engine = function(game){
     this.game = game;
     this.maze = [];
-    this.mazeWidth = 81;
-    this.mazeHeight = 61;
-    this.tileSize = 10;
+    this.mazeWidth = 41;
+    this.mazeHeight = 41;
+    this.tileSize = 15;
     this.mazeGraphics = null;
+    this.positions = [];
 }
  
 Engine.prototype.constructor = Engine;
@@ -22,7 +23,7 @@ Engine.prototype.initGame = function(){
           var posY = 1;
           this.maze[posX][posY] = 0; 
           moves.push(posY + posY * this.mazeWidth);
-          this.game.time.events.loop(Phaser.Timer.SECOND/2500, function(){
+          this.game.time.events.loop(Phaser.Timer.SECOND/250000, function(){
                if(moves.length){       
                     var possibleDirections = "";
                     if(posX+2 > 0 && posX + 2 < this.mazeHeight - 1 && this.maze[posX + 2][posY] == 1){
@@ -71,21 +72,30 @@ Engine.prototype.initGame = function(){
                     this.drawMaze(posX, posY);                                         
                }      
           }, this);	  
+          
 }
 
 Engine.prototype.drawMaze = function(posX, posY){
 
      this.mazeGraphics.clear();
-     this.mazeGraphics.beginFill(0xcccccc);
+     this.mazeGraphics.beginFill(0xffffff);
      for(i = 0; i < this.mazeHeight; i ++){
           for(j = 0; j < this.mazeWidth; j ++){
                if(this.maze[i][j] == 1){
-                    this.mazeGraphics.drawRect(j * this.tileSize, i * this.tileSize, this.tileSize, this.tileSize);                 
+                    this.mazeGraphics.drawRect(j * this.tileSize, i * this.tileSize, this.tileSize, this.tileSize);                          
                }
           }
      }
      this.mazeGraphics.endFill();   
-     this.mazeGraphics.beginFill(0x0000ff); 
+     this.mazeGraphics.beginFill(0x000000); 
      this.mazeGraphics.drawRect(posY * this.tileSize, posX * this.tileSize, this.tileSize, this.tileSize);
+
+                    x = posX * this.tileSize;
+                    y = posY * this.tileSize;
+                    position = {x:x,y:y}; 
+                    if(JSON.stringify(this.positions).indexOf(JSON.stringify(position)) < 0){
+                        this.positions.push(position);
+                    }
+
      this.mazeGraphics.endFill();   
 }
