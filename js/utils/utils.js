@@ -29,3 +29,13 @@ var getScreenWidth = function() {
 var getScreenHeight = function() {
     return window.innerHeight * window.devicePixelRatio;
 }
+
+Array.prototype.isItemInArray = function(item) {
+    for (var i = 0; i < this.length; i++) {
+        // This if statement depends on the format of your array
+        if (this[i][0] == item[0] && this[i][1] == item[1]) {
+            return true;   // Found it
+        }
+    }
+    return false;   // Not found
+}

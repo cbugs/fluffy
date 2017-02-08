@@ -1,8 +1,9 @@
-Engine = function(game){
+Engine = function(game, player){
     this.game = game;
+    this.player = player;
     this.maze = [];
-    this.mazeWidth = 41;
-    this.mazeHeight = 41;
+    this.mazeWidth = 11;
+    this.mazeHeight = 11;
     this.tileSize = 15;
     this.mazeGraphics = null;
     this.positions = [];
@@ -69,13 +70,13 @@ Engine.prototype.initGame = function(){
                          posX = Math.floor(back / this.mazeWidth);
                          posY = back % this.mazeWidth;
                     }
-                    this.drawMaze(posX, posY);                                         
+                    this.drawMaze(posX, posY,possibleDirections[move]);                                         
                }      
           }, this);	  
           
 }
 
-Engine.prototype.drawMaze = function(posX, posY){
+Engine.prototype.drawMaze = function(posX, posY, dir){
 
      this.mazeGraphics.clear();
      this.mazeGraphics.beginFill(0xffffff);
@@ -90,12 +91,62 @@ Engine.prototype.drawMaze = function(posX, posY){
      this.mazeGraphics.beginFill(0x000000); 
      this.mazeGraphics.drawRect(posY * this.tileSize, posX * this.tileSize, this.tileSize, this.tileSize);
 
-                    x = posX * this.tileSize;
-                    y = posY * this.tileSize;
-                    position = {x:x,y:y}; 
-                    if(JSON.stringify(this.positions).indexOf(JSON.stringify(position)) < 0){
-                        this.positions.push(position);
+                    xp = posX * this.tileSize;
+                    yp = posY * this.tileSize;
+           
+
+
+                   // console.log(xp);
+                    for(i=0;i<=this.tileSize*2;i++){
+                        for(j=0;j<=this.tileSize*2;j++){
+
+
+
+
+
+                         switch (dir){
+                              case "N": 
+                                    if(!this.positions.isItemInArray([xp+i,yp+j])){
+                                        this.positions.push([xp+i,yp-j]);
+                                        if(yp+i ==31){console.log("DSDSSD");}
+                                    }
+                                   break;
+                              case "S":
+                                    if(!this.positions.isItemInArray([xp+i,yp-j])){
+                                        this.positions.push([xp+i,yp+j]);
+                                        if(yp+i ==31){console.log("DSDSSD");}
+                                    }
+                                   break;
+                              case "W":
+                                    if(!this.positions.isItemInArray([xp+i,yp+j])){
+                                        this.positions.push([xp-i,yp+j]);
+                                        if(yp+i ==31){console.log("DSDSSD");}
+                                    }
+                                   break;
+                              case "E":
+                                    if(!this.positions.isItemInArray([xp-i,yp+j])){
+                                        this.positions.push([xp+i,yp+j]);
+                                        if(yp+i ==31){console.log("DSDSSD");}
+                                    }
+                                   break;         
+                         }
+
+
+
+
+
+
+
+
+
+
+                            if(!this.positions.isItemInArray([xp+i,yp+j])){
+                                this.positions.push([xp+i,yp+j]);
+                                if(yp+i ==31){console.log("DSDSSD");}
+                            }
+                        }
                     }
+
 
      this.mazeGraphics.endFill();   
 }
