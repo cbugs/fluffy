@@ -1,9 +1,9 @@
-Engine = function(game, player){
+Engine = function(game){
     this.game = game;
-    this.player = player;
+    //this.player = player;
     this.maze = [];
-    this.mazeWidth = 11;
-    this.mazeHeight = 11;
+    this.mazeWidth = 41;
+    this.mazeHeight = 41;
     this.tileSize = 15;
     this.mazeGraphics = null;
     this.positions = [];
@@ -25,7 +25,7 @@ Engine.prototype.initGame = function(){
           this.maze[posX][posY] = 0; 
           moves.push(posY + posY * this.mazeWidth);
           this.game.time.events.loop(Phaser.Timer.SECOND/250000, function(){
-               if(moves.length){       
+               if(moves.length){
                     var possibleDirections = "";
                     if(posX+2 > 0 && posX + 2 < this.mazeHeight - 1 && this.maze[posX + 2][posY] == 1){
                          possibleDirections += "S";
@@ -69,8 +69,14 @@ Engine.prototype.initGame = function(){
                          var back = moves.pop();
                          posX = Math.floor(back / this.mazeWidth);
                          posY = back % this.mazeWidth;
+                           
                     }
                     this.drawMaze(posX, posY,possibleDirections[move]);                                         
+               }else{
+                   if(player==null){
+
+                   player = game.add.sprite(15, 15, 'player');
+                   }
                }      
           }, this);	  
           
@@ -91,61 +97,40 @@ Engine.prototype.drawMaze = function(posX, posY, dir){
      this.mazeGraphics.beginFill(0x000000); 
      this.mazeGraphics.drawRect(posY * this.tileSize, posX * this.tileSize, this.tileSize, this.tileSize);
 
-                    xp = posX * this.tileSize;
-                    yp = posY * this.tileSize;
+                    // xp = posX * this.tileSize;
+                    // yp = posY * this.tileSize;
            
 
-
-                   // console.log(xp);
-                    for(i=0;i<=this.tileSize*2;i++){
-                        for(j=0;j<=this.tileSize*2;j++){
-
-
-
-
+roads.push(this.game.add.sprite(posY * this.tileSize, posX * this.tileSize, 'road'));
 
                          switch (dir){
                               case "N": 
-                                    if(!this.positions.isItemInArray([xp+i,yp+j])){
-                                        this.positions.push([xp+i,yp-j]);
-                                        if(yp+i ==31){console.log("DSDSSD");}
-                                    }
+                                   roads.push(this.game.add.sprite(posY * this.tileSize, (posX+1) * this.tileSize, 'road'));
+                                   //posX -= 2;
                                    break;
                               case "S":
-                                    if(!this.positions.isItemInArray([xp+i,yp-j])){
-                                        this.positions.push([xp+i,yp+j]);
-                                        if(yp+i ==31){console.log("DSDSSD");}
-                                    }
+                                   roads.push(this.game.add.sprite(posY * this.tileSize, (posX-1) * this.tileSize, 'road'));
+                                   //posX += 2;
                                    break;
                               case "W":
-                                    if(!this.positions.isItemInArray([xp+i,yp+j])){
-                                        this.positions.push([xp-i,yp+j]);
-                                        if(yp+i ==31){console.log("DSDSSD");}
-                                    }
+                                   roads.push(this.game.add.sprite((posY+1) * this.tileSize, posX * this.tileSize, 'road'));
+                                   //posY -= 2;
                                    break;
                               case "E":
-                                    if(!this.positions.isItemInArray([xp-i,yp+j])){
-                                        this.positions.push([xp+i,yp+j]);
-                                        if(yp+i ==31){console.log("DSDSSD");}
-                                    }
+                                   roads.push(this.game.add.sprite((posY-1) * this.tileSize, posX * this.tileSize, 'road'));
+                                   //posY += 2;
                                    break;         
                          }
 
-
-
-
-
-
-
-
-
-
-                            if(!this.positions.isItemInArray([xp+i,yp+j])){
-                                this.positions.push([xp+i,yp+j]);
-                                if(yp+i ==31){console.log("DSDSSD");}
-                            }
-                        }
-                    }
+           
+                   // console.log(xp);
+                    // for(i=0;i<=this.tileSize;i++){
+                    //     for(j=0;j<=this.tileSize;j++){
+                    //         if(!this.positions.isItemInArray([xp+i,yp+j])){
+                    //             this.positions.push([xp+i,yp+j]);
+                    //         }
+                    //     }
+                    // }
 
 
      this.mazeGraphics.endFill();   
